@@ -9,12 +9,17 @@ function Login() {
   const dispatch = useDispatch();
 
   const signIn = () => {
-    auth.signInWithPopup(provider).then(({ user }) => {
+    auth.signInWithPopup(provider).then((result) => {
+      var credential = result.credential;
+      var token = credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
       dispatch(
         login({
           displayName: user.displayName,
           email: user.email,
           photoUrl: user.photoURL,
+          token: token
         })
       );
     });

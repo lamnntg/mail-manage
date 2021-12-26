@@ -12,14 +12,18 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PersonIcon from "@material-ui/icons/Person";
 import DuoIcon from "@material-ui/icons/Duo";
 import PhoneIcon from "@material-ui/icons/Phone";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import SidebarOption from "./SidebarOption";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { openSendMessage } from "../../features/mailSlice";
+import { useLocation } from 'react-router-dom'
 
 function Sidebar() {
+  const location = useLocation();
   const dispatch = useDispatch();
-
+  const path = location.pathname;
+  
   return (
     <div className="sidebar">
       <Button
@@ -34,10 +38,17 @@ function Sidebar() {
           Icon={InboxIcon}
           title="Inbox"
           number={54}
-          selected={true}
+          selected={ path==="/" }
         />
       </Link>
-
+      <Link to="/spam" className="sidebar-link">
+        <SidebarOption
+          Icon={DeleteForeverIcon}
+          title="Spam"
+          number={54}
+          selected={ path==="/spam" } 
+        />
+      </Link>
       <SidebarOption Icon={StarIcon} title="Starred" number={12} />
       <SidebarOption Icon={AccessTimeIcon} title="Snoozed" number={9} />
       <SidebarOption Icon={LabelImportantIcon} title="Important" number={12} />
